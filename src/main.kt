@@ -22,7 +22,7 @@ fun getShortestPath(source: Int, destiny: Vertex, graph: List<Vertex>): List<Int
   var currentVertex: Vertex = destiny
   while(true) {
 
-    shortestPath.add(currentVertex.Source)
+    shortestPath.add(currentVertex.Source + 1)
 
     if (currentVertex.Source == source) break
 
@@ -36,19 +36,19 @@ fun main() {
 
   val list: List<List<Int>> = buildValuedMatrix("graph.txt")
 
-  val sorter: Comparator<Vertex> = Comparator.comparing(Vertex::Distance)
+  val sorter: Comparator<Vertex> = Comparator.comparingInt(Vertex::Distance)
   val graph: MutableList<Vertex> = mutableListOf()
   val q: PriorityQueue<Vertex> = PriorityQueue(sorter)
 
 
 
-  println("detected ${list.size} vertex")
+  println("detected ${list.size}x${list[0].size} vertex")
 
   println("type the origin vertex: ")
-  val a = readLine()!!.toInt()
+  val a = readLine()!!.toInt() - 1
 
   println("type the destination vertex: ")
-  val b = readLine()!!.toInt()
+  val b = readLine()!!.toInt() - 1
 
   for (i in list.indices) {
     val v = Vertex(i, null, if (i == a) 0 else INFINITY)
@@ -59,7 +59,11 @@ fun main() {
 
   while (!q.isEmpty()) {
 
-    val v = q.poll()
+    val v = q.poll() // retirar proximo valor na fila com menor
+
+    q.forEach { jk -> print(" ${jk.Distance}") }
+    //q.forEach{jk -> print("origem: ${jk.Source}\nde:${jk.Prev}\ndist:${jk.Distance}\n")}
+    println("\n")
 
 
     for(i in list[v.Source].indices) {
@@ -76,15 +80,11 @@ fun main() {
           distance < neighbor.Distance -> {
             neighbor.Distance = distance
             neighbor.Prev = v.Source
+            q.add(getVertex(graph, neighbor.Source))
           }
         }
       }
     }
-
-    if(v.Source == b) {
-      println("found shortest path with value: ${v.Distance}")
-    }
-
   }
 
   val destinyVertex = getVertex(graph, b)
