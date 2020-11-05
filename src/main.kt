@@ -61,11 +61,6 @@ fun main() {
 
     val v = q.poll() // retirar proximo valor na fila com menor
 
-    q.forEach { jk -> print(" ${jk.Distance}") }
-    //q.forEach{jk -> print("origem: ${jk.Source}\nde:${jk.Prev}\ndist:${jk.Distance}\n")}
-    println("\n")
-
-
     for(i in list[v.Source].indices) {
       if(i != v.Source && list[v.Source][i] != INFINITY) {
 
