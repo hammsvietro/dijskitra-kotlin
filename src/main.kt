@@ -88,6 +88,6 @@ fun main() {
     throw Error("Cannot Find Shortest Path")
   }
 
-  println("FOUND SHORTEST PATH:\nValue: ${destinyVertex.Distance}")
-  println("Path: ${getShortestPath(a, getVertex(graph, b), graph)}")
+  println("FOUND SHORTEST PATH:\nDistance: ${destinyVertex.Distance}")
+  println("Path: ${getShortestPath(a, destinyVertex, graph)}")
 }
