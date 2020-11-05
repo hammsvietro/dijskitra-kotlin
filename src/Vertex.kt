@@ -1,5 +1,5 @@
 class Vertex(
-        override var source: Int,
-        override var prev: Int?,
-        override var distance: Int
+        override var Source: Int,
+        override var Prev: Int?,
+        override var Distance: Int
         ) : IVertex

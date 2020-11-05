@@ -1,5 +1,5 @@
 interface IVertex {
-    var source: Int
-    var prev: Int?
-    var distance: Int
+    var Source: Int
+    var Prev: Int?
+    var Distance: Int
 }
