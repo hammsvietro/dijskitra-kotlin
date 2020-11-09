@@ -45,26 +45,26 @@ fun main() {
   println("detected ${list.size}x${list[0].size} vertex")
 
   println("type the origin vertex: ")
-  val a = readLine()!!.toInt() - 1
+  val a = readLine()!!.toInt() - 1 // Lê nó de partida (subtrai um pois arrays começam em 0)
 
   println("type the destination vertex: ")
-  val b = readLine()!!.toInt() - 1
+  val b = readLine()!!.toInt() - 1 // Lê nó de destino
 
-  for (i in list.indices) {
+  for (i in list.indices) { // Adiciona todas as arestas na fila de prioridade
     val v = Vertex(i, null, if (i == a) 0 else INFINITY)
 
     q.add(v)
     graph.add(v)
   }
 
-  while (!q.isEmpty()) {
+  while (!q.isEmpty()) { // enquanto a fila de prioridade não está vazia
 
-    val v = q.poll() // retirar proximo valor na fila com menor
+    val v = q.poll() // retirar proximo valor na fila com menor (não atualizado)
 
-    for(i in list[v.Source].indices) {
-      if(i != v.Source && list[v.Source][i] != INFINITY) {
+    for(i in list[v.Source].indices) { // para todas as arestas do grafo
+      if(i != v.Source && list[v.Source][i] != INFINITY) { // se há ligação da aresta testada a vizinha
 
-        val distance = list[v.Source][i] + v.Distance
+        val distance = list[v.Source][i] + v.Distance // variavel que tem o valor do ponto de partida até o vizinho
 
         val neighbor: Vertex? = getVertex(graph, i)
 
@@ -72,10 +72,11 @@ fun main() {
           neighbor == null -> {
             throw Error("something went wrong, try again")
           }
-          distance < neighbor.Distance -> {
+          // se a nova distancia for menor que a previamente registrada
+          distance < neighbor.Distance -> { // Altere o valor de distancia
             neighbor.Distance = distance
             neighbor.Prev = v.Source
-            q.add(getVertex(graph, neighbor.Source))
+            q.add(getVertex(graph, neighbor.Source)) // Readicionar o grafo na fila para ser retestado pois ele pode ter seu caminho alterado
           }
         }
       }
